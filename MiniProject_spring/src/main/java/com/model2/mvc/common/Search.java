@@ -15,6 +15,7 @@ public class Search {
 	//==> 참조
 	private int endRowNum;
 	private int startRowNum;
+	private int prodSort;
 	
 	///Constructor
 	public Search() {
@@ -56,6 +57,14 @@ public class Search {
 	//==> Select Query 시 ROWNUM 시작 값
 	public int getStartRowNum() {
 		return (getCurrentPage()-1)*getPageSize()+1;
+	}
+
+	public int getProdSort() {
+		return prodSort;
+	}
+
+	public void setProdSort(int prodSort) {
+		this.prodSort = prodSort;
 	}
 
 	@Override

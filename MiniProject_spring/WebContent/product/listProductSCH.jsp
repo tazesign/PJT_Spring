@@ -108,6 +108,12 @@
 		<td colspan="11" >
 			전체 ${resultPage.totalCount} 건수,	현재 ${resultPage.currentPage} 페이지
 		</td>
+		<td align="right">
+			<a href="/listProduct.do?prodSort=0&menu=search">최근등록순</a>
+			<a href="/listProduct.do?prodSort=1&menu=search">낮은가격순</a>
+			<a href="/listProduct.do?prodSort=2&menu=search">높은가격순</a>
+			<input type="hidden" name="prodSort"  value="${search.prodSort}" class="ct_input_g" style="width:200px; height:19px" />
+		</td>
 	</tr>
 	<tr>
 		<td class="ct_list_b" width="100">No</td>

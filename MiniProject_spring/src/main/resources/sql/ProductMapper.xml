@@ -67,7 +67,19 @@
 		  				 	</if>
 		  				 </if>
 	  				 </where>
-	  				 ORDER BY pro.prod_no ) inner_table
+	  				 ORDER BY
+	  				 <if test="prodSort == 0">
+	  				 	pro.reg_date DESC
+	  				 </if>
+	  				 <if test="prodSort == 1">
+	  				 	pro.price
+	  				 </if>
+	  				 <if test="prodSort == 2">
+	  				 	pro.price DESC
+	  				 </if>
+	  				 <if test="prodSort == null">
+	  				 	pro.prod_no
+	  				 </if> ) inner_table
 	  				 WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}	
 	 </select>

@@ -14,6 +14,7 @@ public class Product {
 	private Date regDate;
 	private String proTranCode;
 	
+	
 	public Product(){
 	}
 	

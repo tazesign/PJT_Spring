@@ -118,9 +118,11 @@ public class ProductController {
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(pageSize);
+		System.out.println("=================테스트1111111===================");
 		
 		// Business logic 수행
 		Map<String , Object> map= productService.getProductList(search);
+		System.out.println("=================테스트2222222===================");
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println(resultPage);
