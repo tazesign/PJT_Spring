@@ -70,7 +70,7 @@
 		</td>
 		<td></td>
 		<td align="left">
-			<a href="/getPurchase.do?tranNo=${pur.tranNo}">${pur.purchaseProd.prodName}</a>
+			<a href="/getPurchase.do?tranNo=${pur.tranNo}">${pur.tranNo}</a>
 		</td>
 		<td></td>
 		<td align="left">
@@ -83,10 +83,10 @@
 		<td></td>
 		<td align="left">
 			<c:choose>
-				<c:when test="${pur.tranCode == 1}">
+				<c:when test="${pur.tranCode.trim() == '1'}">
 				현재 구매완료 상태 입니다.
 				</c:when>
-				<c:when test="${pur.tranCode == 2}">
+				<c:when test="${pur.tranCode.trim() == '2'}">
 				현재 배송중 상태 입니다.
 				</c:when>
 				<c:otherwise>
@@ -96,7 +96,7 @@
 		</td>
 		<td></td>
 		<td align="left">
-			<c:if test="${pur.tranCode == 2}">
+			<c:if test="${pur.tranCode.trim() == '2'}">
 				<a href="/updateTranCode.do?tranNo=${pur.tranNo}&tranCode=3">물건도착</a>
 			</c:if>
 		</td>

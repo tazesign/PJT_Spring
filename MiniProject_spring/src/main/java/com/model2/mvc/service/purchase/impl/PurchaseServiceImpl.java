@@ -43,6 +43,7 @@ public class PurchaseServiceImpl implements PurchaseService  {
 		//구매목록조회
 		public Map<String,Object> getPurchaseList(Search search, String buyerId) throws Exception{  
 			
+			System.out.println("펄체이스서비스임플리먼츠");
 			List<Purchase>list = purchaseDao.getPurchaseList(search,buyerId);
 			int totalCount = purchaseDao.getTotalCount(buyerId);
 			//return productDao.getProductList(search); //상품목록은 리턴값이맵 //기존의 서비스 임플에서 바로 dao.~~() 호출

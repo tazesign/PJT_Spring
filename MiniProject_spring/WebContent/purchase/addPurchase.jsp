@@ -15,19 +15,19 @@
 <table border=1>
 	<tr>
 		<td>물품번호</td>
-		<td>${purVO.purchaseProd.prodNo}</td>
+		<td>${purchase.purchaseProd.prodNo}</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>구매자아이디</td>
-		<td>${purVO.buyer.userId}</td>
+		<td>${purchase.buyer.userId}</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>구매방법</td>
 		<td>
 			<c:choose>
-				<c:when test="${purVO.paymentOption == 1}">
+				<c:when test="${purchase.paymentOption == 1}">
 					현금구매
 				</c:when>
 				<c:otherwise>
@@ -39,27 +39,27 @@
 	</tr>
 	<tr>
 		<td>구매자이름</td>
-		<td>${purVO.receiverName}</td>
+		<td>${purchase.receiverName}</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>구매자연락처</td>
-		<td>${purVO.receiverPhone}</td>
+		<td>${purchase.receiverPhone}</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>구매자주소</td>
-		<td>${purVO.divyAddr}</td>
+		<td>${purchase.divyAddr}</td>
 		<td></td>
 	</tr>
 		<tr>
 		<td>구매요청사항</td>
-		<td>${purVO.divyRequest}</td>
+		<td>${purchase.divyRequest}</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>배송희망일자</td>
-		<td>${purVO.divyDate}</td>
+		<td>${purchase.divyDate}</td>
 		<td></td>
 	</tr>
 </table>

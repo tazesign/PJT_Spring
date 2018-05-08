@@ -133,7 +133,7 @@
 		<td></td>
 		<td align="left">
 			<c:choose>
-				<c:when test="${pro.proTranCode == '0' }">
+				<c:when test="${pro.proTranCode.trim() == '0' }">
 					<a href="/updateProductView.do?prodNo=${pro.prodNo}&menu=manage">${pro.prodName}</a>
 				</c:when>
 				<c:otherwise>
@@ -148,14 +148,14 @@
 		<td></td>
 		<td align="left">
 			<c:choose>
-				<c:when test="${pro.proTranCode == '0' }">
+				<c:when test="${pro.proTranCode.trim() == '0' }">
 				판매중
 				</c:when>
-				<c:when test="${pro.proTranCode == '1' }">
+				<c:when test="${pro.proTranCode.trim() == '1' }">
 				구매완료
 				<a href="/updateTranCodeByProd.do?prodNo=${pro.prodNo}&tranCode=2&menu=manage">배송하기</a>
 				</c:when>
-				<c:when test="${pro.proTranCode == '2' }">
+				<c:when test="${pro.proTranCode.trim() == '2' }">
 				배송중
 				</c:when>
 				<c:otherwise>

@@ -46,12 +46,15 @@ public class PurchaseDaoImpl implements PurchaseDao {
 	@Override
 	public List<Purchase> getPurchaseList(Search search, String buyerId) throws Exception {
 		
+		System.out.println("펄체이스다오임플리먼츠");
 		//구매목록 리스트 서치랑 아이디 필요함
 		Map<String , Object>  map = new HashMap<String, Object>();
 		map.put("search", search);
 		map.put("buyerId", buyerId);
 		
-		return sqlSession.selectList("PurchaseMapper.getpurchaseList",map );
+		System.out.println("다오에서치" + search + ":: 다오바이어아이디" + buyerId);
+		
+		return sqlSession.selectList("PurchaseMapper.getPurchaseList",map );
 		
 		}
 

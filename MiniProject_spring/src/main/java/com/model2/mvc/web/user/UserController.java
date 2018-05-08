@@ -88,7 +88,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("/updateUser.do")
-	public String updateUser( @ModelAttribute("user") User user , Model model , HttpSession session) throws Exception{
+	public String updateUser( @ModelAttribute("user") User user, HttpSession session) throws Exception{
 
 		System.out.println("/updateUser.do");
 		//Business Logic
