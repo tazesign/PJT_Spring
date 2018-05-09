@@ -16,19 +16,20 @@
 		<result property="fileName" 		column="image_file" 					jdbcType="VARCHAR" />
 		<result property="regDate" 		column="reg_date" 					jdbcType="DATE" />
 		<result property="proTranCode" column="code"							jdbcType="INTEGER" />
+		<result property="quantity"		column="quantity"						jdbcType="INTEGER"/>
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
 	<insert 	id="addProduct"		parameterType="product" >
 	 	INSERT
-		INTO product (prod_no, prod_name, prod_detail, manufacture_day, price, image_file, reg_date) 
-		VALUES (seq_product_prod_no.NEXTVAL, #{prodName}, #{prodDetail}, #{manuDate}, #{price}, #{fileName}, SYSDATE)
+		INTO product (prod_no, prod_name, prod_detail, manufacture_day, price, image_file, reg_date, quantity) 
+		VALUES (seq_product_prod_no.NEXTVAL, #{prodName}, #{prodDetail}, #{manuDate}, #{price}, #{fileName}, SYSDATE, #{quantity})
 	 </insert>
 	 
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="getProduct"	parameterType="int"	resultMap="productSelectMap">
 		SELECT
-		prod_no, prod_name, prod_detail, manufacture_day, price, image_file, reg_date	
+		prod_no, prod_name, prod_detail, manufacture_day, price, image_file, reg_date, quantity
 		FROM product
 		WHERE prod_no = #{value}
 	 </select>
@@ -41,7 +42,8 @@
 	   		prod_detail = #{prodDetail},
 	   		manufacture_day = #{manuDate},
 	   		price = #{price},
-	   		image_file = #{fileName}
+	   		image_file = #{fileName, jdbcType=VARCHAR},
+	   		quantity = #{quantity}
 	   	</set>
 	   	WHERE prod_no = #{prodNo}
 	 </update>
@@ -50,35 +52,34 @@
 	<select  id="getProductList"  parameterType="search"	resultMap="productSelectMap">
 		SELECT * 
 		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
-	  				 FROM ( SELECT pro.prod_no, pro.prod_name, pro.prod_detail, pro.manufacture_day, pro.price, pro.image_file,
-	  				 pro.reg_date, NVL(pur.tran_status_code, 0) code
-	  				 FROM PRODUCT pro,  TRANSACTION pur
+	  				 FROM ( SELECT prod_no, prod_name, prod_detail, manufacture_day, price, image_file,
+	  				 reg_date, quantity
+	  				 FROM PRODUCT
 	  				 <where>
-	  				 pro.prod_no = pur.prod_no(+)
 		  				 <if test="searchCondition != null">
 		  				 	<if test="searchCondition == 0 and searchKeyword !='' ">
-		  				 		AND pro.prod_no = #{searchKeyword}
+		  				 		prod_no = #{searchKeyword}
 		  				 	</if>
 		  				 	<if test="searchCondition == 1 and searchKeyword !='' ">
-		  				 		AND pro.prod_name LIKE '%'||#{searchKeyword}||'%'
+		  				 		prod_name LIKE '%'||#{searchKeyword}||'%'
 		  				 	</if>
 		  				 	<if test="searchCondition == 2 and searchKeyword !='' ">
-		  				 		AND pro.price = #{searchKeyword}
+		  				 		price = #{searchKeyword}
 		  				 	</if>
 		  				 </if>
 	  				 </where>
 	  				 ORDER BY
 	  				 <if test="prodSort == 0">
-	  				 	pro.reg_date DESC
+	  				 	reg_date DESC
 	  				 </if>
 	  				 <if test="prodSort == 1">
-	  				 	pro.price
+	  				 	price
 	  				 </if>
 	  				 <if test="prodSort == 2">
-	  				 	pro.price DESC
+	  				 	price DESC
 	  				 </if>
 	  				 <if test="prodSort == null">
-	  				 	pro.prod_no
+	  				 	prod_no
 	  				 </if> ) inner_table
 	  				 WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}	

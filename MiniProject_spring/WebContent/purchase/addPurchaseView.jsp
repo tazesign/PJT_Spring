@@ -15,6 +15,12 @@
 <script type="text/javascript">
 <!--
 function fncAddPurchase() {
+	var prodQuantity = document.getElementById("prodQuantity").value;
+	var quantity = document.getElementById("quantity").value;
+	if(parseInt(quantity) > parseInt(prodQuantity)){
+		alert("재고수량을 초과할 수 없습니다.");
+		return;
+	}
 	document.addPurchase.submit();
 }
 -->
@@ -23,7 +29,7 @@ function fncAddPurchase() {
 
 <body>
 
-<form name="addPurchase" method="post" action="/addPurchase.do">
+<form name="addPurchase" method="post" action="/purchase/addPurchase">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -187,6 +193,19 @@ function fncAddPurchase() {
 							style="width: 100px; height: 19px" maxLength="20"/>
 			<img 	src="../images/ct_icon_date.gif" width="15" height="15"	
 						onclick="show_calendar('document.addPurchase.divyDate', document.addPurchase.divyDate.value)"/>
+		</td>
+	</tr>
+	<tr>
+		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+	</tr>
+	<tr>
+		<td width="104" class="ct_write">구매수량</td>
+		<td bgcolor="D6D6D6" width="1"></td>
+		<td width="200" class="ct_write01">
+			<input 	type="text" id="quantity" name="quantity" value="1" class="ct_input_g" 
+						style="width: 100px; height: 19px" maxLength="20"/>
+			재고수량 : ${product.quantity}
+			<input type="hidden" id="prodQuantity" name="prodQuantity"value="${product.quantity}" /> 
 		</td>
 	</tr>
 	<tr>

@@ -8,7 +8,7 @@
 
 <body>
 
-<form name="updatePurchase" action="/updatePurchaseView.do?tranNo=0" method="post">
+<form name="updatePurchase" action="/purchase/updatePurchase?tranNo=0" method="post">
 
 다음과 같이 구매가 되었습니다.
 
@@ -60,6 +60,11 @@
 	<tr>
 		<td>배송희망일자</td>
 		<td>${purchase.divyDate}</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>구매수량</td>
+		<td>${purchase.quantity}</td>
 		<td></td>
 	</tr>
 </table>

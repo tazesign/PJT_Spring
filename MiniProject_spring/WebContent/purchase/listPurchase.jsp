@@ -20,7 +20,7 @@
 
 <div style="width: 98%; margin-left: 10px;">
 
-<form name="detailForm" action="/listPurchase.do" method="post">
+<form name="detailForm" action="/purchase/listPurchase" method="post">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -45,17 +45,18 @@
 	<tr>
 		<td class="ct_list_b" width="100">No</td>
 		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="150">상품명</td>
+		<td class="ct_list_b" width="150">구매번호</td>
+		<td class="ct_line02"></td>
+		<td class="ct_list_b" width="150">상품번호</td>
 		<td class="ct_line02"></td>
 		<td class="ct_list_b" width="150">회원ID</td>
 		<td class="ct_line02"></td>
 		<td class="ct_list_b" width="150">회원명</td>
 		<td class="ct_line02"></td>
-		<td class="ct_list_b">전화번호</td>
+		<td class="ct_list_b" width="150">전화번호</td>
 		<td class="ct_line02"></td>
 		<td class="ct_list_b">배송현황</td>
 		<td class="ct_line02"></td>
-		<td class="ct_list_b">정보수정</td>
 	</tr>
 	<tr>
 		<td colspan="11" bgcolor="808285" height="1"></td>
@@ -70,11 +71,15 @@
 		</td>
 		<td></td>
 		<td align="left">
-			<a href="/getPurchase.do?tranNo=${pur.tranNo}">${pur.tranNo}</a>
+			<a href="/purchase/getPurchase?tranNo=${pur.tranNo}">${pur.tranNo}</a>
 		</td>
 		<td></td>
 		<td align="left">
-			<a href="/getUser.do?userId=${pur.buyer.userId}">${pur.buyer.userId}</a>
+			${pur.purchaseProd.prodNo}
+		</td>
+		<td></td>
+		<td align="left">
+			<a href="/user/getUser?userId=${pur.buyer.userId}">${pur.buyer.userId}</a>
 		</td>
 		<td></td>
 		<td align="left">${pur.receiverName}</td>
@@ -97,7 +102,7 @@
 		<td></td>
 		<td align="left">
 			<c:if test="${pur.tranCode.trim() == '2'}">
-				<a href="/updateTranCode.do?tranNo=${pur.tranNo}&tranCode=3">물건도착</a>
+				<a href="/purchase/updateTranCode?tranNo=${pur.tranNo}&tranCode=3">물건도착</a>
 			</c:if>
 		</td>
 	</tr>

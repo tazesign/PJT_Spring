@@ -20,7 +20,7 @@
 
 <div style="width:98%; margin-left:10px;">
 
-<form name="detailForm" action="/listProduct.do?menu=manage" method="post">
+<form name="detailForm" action="/product/listProduct?menu=manage" method="post">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -108,6 +108,12 @@
 	<tr>
 		<td colspan="11" >
 			전체 ${resultPage.totalCount} 건수,	현재 ${resultPage.currentPage} 페이지
+			<span align="right">
+				<a href="/product/listProduct?prodSort=0&menu=manage">최근등록순</a>
+				<a href="/product/listProduct?prodSort=1&menu=manage">낮은가격순</a>
+				<a href="/product/listProduct?prodSort=2&menu=manage">높은가격순</a>
+				<input type="hidden" name="prodSort"  value="${search.prodSort}" class="ct_input_g" style="width:200px; height:19px" />
+			</span>
 		</td>
 	</tr>
 	<tr>
@@ -120,6 +126,8 @@
 		<td class="ct_list_b">등록일</td>	
 		<td class="ct_line02"></td>
 		<td class="ct_list_b">현재상태</td>	
+		<td class="ct_line02"></td>
+		<td class="ct_list_b">상품수량</td>	
 	</tr>
 	<tr>
 		<td colspan="11" bgcolor="808285" height="1"></td>
@@ -132,14 +140,7 @@
 		<td align="center">${ i }</td>
 		<td></td>
 		<td align="left">
-			<c:choose>
-				<c:when test="${pro.proTranCode.trim() == '0' }">
-					<a href="/updateProductView.do?prodNo=${pro.prodNo}&menu=manage">${pro.prodName}</a>
-				</c:when>
-				<c:otherwise>
-					${pro.prodName}
-				</c:otherwise>
-			</c:choose>
+			<a href="/product/updateProductView?prodNo=${pro.prodNo}&menu=manage">${pro.prodName}</a>
 		</td>
 		<td></td>
 		<td align="left">${pro.price}</td>
@@ -148,20 +149,16 @@
 		<td></td>
 		<td align="left">
 			<c:choose>
-				<c:when test="${pro.proTranCode.trim() == '0' }">
+				<c:when test="${pro.quantity >= 1}">
 				판매중
 				</c:when>
-				<c:when test="${pro.proTranCode.trim() == '1' }">
-				구매완료
-				<a href="/updateTranCodeByProd.do?prodNo=${pro.prodNo}&tranCode=2&menu=manage">배송하기</a>
-				</c:when>
-				<c:when test="${pro.proTranCode.trim() == '2' }">
-				배송중
-				</c:when>
 				<c:otherwise>
-				배송완료
+				재고 없음
 				</c:otherwise>
 			</c:choose>
+		</td>
+		<td align="left">${pro.quantity}</td>
+		<td></td>
 		</td>
 	</tr>
 	<tr>

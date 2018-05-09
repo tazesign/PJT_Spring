@@ -21,7 +21,7 @@
 
 <div style="width:98%; margin-left:10px;">
 
-<form name="detailForm" action="/listProduct.do?menu=search" method="post">
+<form name="detailForm" action="/product/listProduct?menu=search" method="post">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -107,24 +107,27 @@
 	<tr>
 		<td colspan="11" >
 			전체 ${resultPage.totalCount} 건수,	현재 ${resultPage.currentPage} 페이지
-		</td>
-		<td align="right">
-			<a href="/listProduct.do?prodSort=0&menu=search">최근등록순</a>
-			<a href="/listProduct.do?prodSort=1&menu=search">낮은가격순</a>
-			<a href="/listProduct.do?prodSort=2&menu=search">높은가격순</a>
+			
+			<span align="right">
+			<a href="/product/listProduct?prodSort=0&menu=search">최근등록순</a>
+			<a href="/product/listProduct?prodSort=1&menu=search">낮은가격순</a>
+			<a href="/product/listProduct?prodSort=2&menu=search">높은가격순</a>
 			<input type="hidden" name="prodSort"  value="${search.prodSort}" class="ct_input_g" style="width:200px; height:19px" />
+			</span>
 		</td>
 	</tr>
 	<tr>
 		<td class="ct_list_b" width="100">No</td>
 		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="150">상품명</td>
+		<td class="ct_list_b">상품명</td>
 		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="150">가격</td>
+		<td class="ct_list_b">가격</td>
 		<td class="ct_line02"></td>
 		<td class="ct_list_b">등록일</td>	
 		<td class="ct_line02"></td>
 		<td class="ct_list_b">현재상태</td>	
+		<td class="ct_line02"></td>
+		<td class="ct_list_b">상품수량</td>	
 	</tr>
 	<tr>
 		<td colspan="11" bgcolor="808285" height="1"></td>
@@ -138,11 +141,11 @@
 		<td></td>
 		<td align="left">
 		<c:choose>
-			<c:when test="${pro.proTranCode != '0'}">
-				${pro.prodName}
+			<c:when test="${pro.quantity >= 1}">
+				<a href="/product/getProduct?prodNo=${pro.prodNo}&menu=search">${pro.prodName}</a>
 			</c:when>
 			<c:otherwise>
-				<a href="/getProduct.do?prodNo=${pro.prodNo}&menu=search">${pro.prodName}</a>
+				${pro.prodName}
 			</c:otherwise>
 		</c:choose>
 		</td>
@@ -153,7 +156,7 @@
 		<td></td>
 		<td align="left">
 			<c:choose>
-				<c:when test="${pro.proTranCode == '0'}">
+				<c:when test="${pro.quantity >= 1}">
 				판매중
 				</c:when>
 				<c:otherwise>
@@ -161,6 +164,7 @@
 				</c:otherwise>
 			</c:choose>
 		</td>
+		<td align="left">${pro.quantity}</td>
 	</tr>
 	<tr>
 		<td colspan="11" bgcolor="D6D7D6" height="1"></td>
