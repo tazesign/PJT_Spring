@@ -140,7 +140,7 @@
 		<td align="center">${ i }</td>
 		<td></td>
 		<td align="left">
-			<a href="/product/updateProductView?prodNo=${pro.prodNo}&menu=manage">${pro.prodName}</a>
+			<a href="/product/updateProduct?prodNo=${pro.prodNo}&menu=manage">${pro.prodName}</a>
 		</td>
 		<td></td>
 		<td align="left">${pro.price}</td>
