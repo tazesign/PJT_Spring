@@ -78,10 +78,10 @@ public class PurchaseController {
 		purchase.setDivyDate(purchase.getDivyDate().replaceAll("-", ""));
 		purchaseService.addPurchase(purchase);		
 		
-		///상품수량
+		//상품수량
 		int prodQuantity = product.getQuantity();
 		
-		///구매수량
+		//구매수량
 		int purchaseQuantity = purchase.getQuantity();
 		prodQuantity = prodQuantity - purchaseQuantity;
 		product.setQuantity(prodQuantity);

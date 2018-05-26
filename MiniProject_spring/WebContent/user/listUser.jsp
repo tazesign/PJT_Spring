@@ -6,13 +6,32 @@
 <title>회원 목록 조회</title>
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
-
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 	// 검색 / page 두가지 경우 모두 Form 전송을 위해 JavaScrpt 이용  
 	function fncGetList(currentPage) {
-		document.getElementById("currentPage").value = currentPage;
-	   	document.detailForm.submit();		
+		$("#currentPage").val(currentPage)
+		$("form").attr("method" , "POST").attr("action" , "/user/listUser").submit();
 	}
+	$(function(){
+		
+		//==> 검색 Event 연결처리부분
+		 $( "td.ct_btn01:contains('검색')" ).on("click" , function() {
+			 fncGetUserList(1);
+		 });
+		
+		//==> userId LINK Event 연결처리
+		 $( ".ct_list_pop td:nth-child(3)" ).on("click" , function() {
+				self.location ="/user/getUser?userId="+$(this).text().trim();
+		});
+		
+		//==> UI 수정 추가부분  :  userId LINK Event End User 에게 보일수 있도록 
+		$( ".ct_list_pop td:nth-child(3)" ).css("color" , "red");
+		$("h7").css("color" , "red");
+		
+		$(".ct_list_pop:nth-child(4n+6)" ).css("background-color" , "whitesmoke");
+		 
+	});
 </script>
 
 </head>
@@ -21,7 +40,7 @@
 
 <div style="width:98%; margin-left:10px;">
 
-<form name="detailForm" action="/user/listUser" method="post">
+<form name="detailForm">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -59,7 +78,7 @@
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						<a href="javascript:fncGetList('1');">검색</a>
+						검색
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
@@ -79,7 +98,10 @@
 	<tr>
 		<td class="ct_list_b" width="100">No</td>
 		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="150">회원ID</td>
+		<td class="ct_list_b" width="150">
+			회원ID</br>
+			<h7 >(id click:상세정보)</h7>
+		</td>
 		<td class="ct_line02"></td>
 		<td class="ct_list_b" width="150">회원명</td>
 		<td class="ct_line02"></td>
@@ -95,7 +117,7 @@
 		<tr class="ct_list_pop">
 			<td align="center">${ i }</td>
 			<td></td>
-			<td align="left"><a href="/user/getUser?userId=${user.userId}">${user.userId}</a></td>
+			<td align="left">${user.userId}</td>
 			<td></td>
 			<td align="left">${user.userName}</td>
 			<td></td>

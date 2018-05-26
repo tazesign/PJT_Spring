@@ -6,13 +6,39 @@
 <title>배송관리</title>
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
-
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 	// 검색 / page 두가지 경우 모두 Form 전송을 위해 JavaScrpt 이용  
 	function fncGetList(currentPage) {
-		document.getElementById("currentPage").value = currentPage;
-	   	document.detailForm.submit();		
+		$("#currentPage").val(currentPage);
+	   	$("form").attr("method", "POST").attr("action", "/purchase/listManageTran").submit();		
 	}
+	
+
+	
+	$(function(){
+		$("td.ct_btn01:contains('검색')").on("click", function(){
+			fncGetList(1);
+		});
+		
+		$( "td.sort span:contains('최근등록순')" ).on("click" , function() {
+			self.location = "/purchase/listPurchase?prodSort=0&menu=manage";
+		 });
+		
+		$( "td.sort span:contains('낮은가격순')" ).on("click" , function() {
+			self.location = "/purchase/listPurchase?prodSort=1&menu=manage";
+		 });
+		
+		$( "td.sort span:contains('높은가격순')" ).on("click" , function() {
+			self.location = "/purchase/listPurchase?prodSort=2&menu=manage";
+		 });
+		
+		$( "td.tranInfo:contains('배송하기')" ).on("click" , function() {
+			var prodNo = $(".prodNo").val();
+			alert("prodNo" + prodNo);
+			self.location = "/purchase/updateTranCodeByProd?prodNo="+prodNo+"&tranCode=2&menu=manage";
+		 });
+	});
 </script>
 </head>
 
@@ -20,7 +46,7 @@
 
 <div style="width:98%; margin-left:10px;">
 
-<form name="detailForm" action="/purchase/listManageTran" method="post">
+<form name="detailForm">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -92,7 +118,7 @@
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						<a href="javascript:fncGetList('1');">검색</a>
+						검색
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
@@ -106,14 +132,14 @@
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>
-		<td colspan="11" >
+		<td colspan="10">
 			전체 ${resultPage.totalCount} 건수,	현재 ${resultPage.currentPage} 페이지
-			<span align="right">
-			<a href="/purchase/listPurchase?prodSort=0&menu=manage">최근등록순</a>
-			<a href="/purchase/listPurchase?prodSort=1&menu=manage">낮은가격순</a>
-			<a href="/purchase/listPurchase?prodSort=2&menu=manage">높은가격순</a>
+		</td>
+		<td class="sort">
+			<span>최근등록순</span>
+			<span>낮은가격순</span>
+			<span>높은가격순</span>
 			<input type="hidden" name="prodSort"  value="${search.prodSort}" class="ct_input_g" style="width:200px; height:19px" />
-			</span>
 		</td>
 	</tr>
 	<tr>
@@ -143,7 +169,10 @@
 		<td></td>
 		<td align="left">${purchase.tranNo}</td>
 		<td></td>
-		<td align="left">${purchase.purchaseProd.prodNo}</td>
+		<td align="left">
+		${purchase.purchaseProd.prodNo}
+		<input type="hidden" value="${purchase.purchaseProd.prodNo}" class="prodNo"/>
+		</td>
 		<td></td>
 		<td align="left">${purchase.quantity}</td>
 		<td></td>
@@ -151,11 +180,11 @@
 		<td></td>
 		<td align="left">${purchase.receiverName}</td>
 		<td></td>
-		<td align="left">
+		<td align="left" class="tranInfo">
 			<c:choose>
 				<c:when test="${purchase.tranCode.trim() == '1' }">
 					구매완료
-					<a href="/purchase/updateTranCodeByProd?prodNo=${purchase.purchaseProd.prodNo}&tranCode=2&menu=manage">배송하기</a>
+					[배송하기]
 				</c:when>
 				<c:when test="${purchase.tranCode.trim() == '2' }">
 					배송중

@@ -8,41 +8,93 @@
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
+<!-- CDN(Content Delivery Network) 호스트 사용 -->
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
-<!--
-function fncUpdateUser() {
 
-	var name=document.detailForm.userName.value;
+//=====기존Code 주석 처리 후  jQuery 변경 ======//
+function fncUpdateUser() {
+	// Form 유효성 검증
+	//var name=document.detailForm.userName.value;
+	var name=$("input[name='userName']").val();
 	
 	if(name == null || name.length <1){
 		alert("이름은  반드시 입력하셔야 합니다.");
 		return;
 	}
 		
-	if(document.detailForm.phone2.value != "" && document.detailForm.phone2.value != "") {
-		document.detailForm.phone.value = document.detailForm.phone1.value + "-" + document.detailForm.phone2.value + "-" + document.detailForm.phone3.value;
-	} else {
-		document.detailForm.phone.value = "";
+	//if(document.detailForm.phone2.value != "" && document.detailForm.phone2.value != "") {
+	//	document.detailForm.phone.value = document.detailForm.phone1.value + "-" + document.detailForm.phone2.value + "-" + document.detailForm.phone3.value;
+	//} else {
+	//	document.detailForm.phone.value = "";
+	//}
+	
+	var value = "";	
+	if( $("input[name='phone2']").val() != ""  &&  $("input[name='phone3']").val() != "") {
+		var value = $("option:selected").val() + "-" 
+							+ $("input[name='phone2']").val() + "-" 
+							+ $("input[name='phone3']").val();
 	}
+	
+	//Debug...
+	//alert("phone : "+value);
+	$("input:hidden[name='phone']").val( value );
 		
-	document.detailForm.action='/user/updateUser';
-	document.detailForm.submit();
-}
+	//	document.detailForm.action='/user/updateUser';
+	//document.detailForm.submit();
+	$("form").attr("method" , "POST").attr("action" , "/user/updateUser").submit();
+}//===========================================//
+//==> 추가된부분 : "수정"  Event 연결
+ $(function() {
+	//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+	//==> 1 과 3 방법 조합 : $("tagName.className:filter함수") 사용함.	
+	 $( "td.ct_btn01:contains('수정')" ).on("click" , function() {
+		//Debug..
+		//alert(  $( "td.ct_btn01:contains('수정')" ).html() );
+		fncUpdateUser();
+	});
+});	
 
+
+ /*============= jQuery 변경 주석처리 =============
 function check_email(frm) {
-	alert
-	var email=document.detailForm.email.value;
-    if(email != "" && (email.indexOf('@') < 1 || email.indexOf('.') == -1)){
-    	alert("이메일 형식이 아닙니다.");
-		return false;
-    }
-    return true;
-}
+		var email=document.detailForm.email.value;
+	    if(email != "" && (email.indexOf('@') < 1 || email.indexOf('.') == -1)){
+	    	alert("이메일 형식이 아닙니다.");
+			return false;
+	    }
+	    return true;
+}========================================	*/
+//==> 추가된부분 : "이메일" 유효성Check  Event 처리 및 연결
+ $(function() {
+	 
+	 $("input[name='email']").on("change" , function() {
+			
+		 var email=$("input[name='email']").val();
+	    
+		 if(email != "" && (email.indexOf('@') < 1 || email.indexOf('.') == -1) ){
+	    	alert("이메일 형식이 아닙니다.");
+	     }
+	});
+	 
+});	
 
+
+	/*============= jQuery 변경 주석처리 =============
 function resetData() {
 	document.detailForm.reset();
-}
--->
+}========================================	*/
+//==> 추가된부분 : "취소"  Event 연결 및 처리
+ $(function() {
+	//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+	//==> 1 과 3 방법 조합 : $("tagName.className:filter함수") 사용함.	
+	 $( "td.ct_btn01:contains('취소')" ).on("click" , function() {
+		//Debug..
+		//alert(  $( "td.ct_btn01:contains('취소')" ).html() );
+		history.go(-1);
+	});
+});
+
 </script>
 </head>
 

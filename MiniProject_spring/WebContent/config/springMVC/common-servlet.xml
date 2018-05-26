@@ -32,19 +32,20 @@
      
      <!-- interceptor 를 직접 DefaultAnnotationHandlerMapping 에 주입 할 수 없으니 아래의 설정방법으로 interceptor 주입 -->
      <!--bean id="logonCheckInterceptor"	class="com.model2.mvc.common.web.LogonCheckInterceptor" /-->							
-     <mvc:interceptors>
+     <!-- <mvc:interceptors>
 	   		<mvc:interceptor>
 				<mvc:mapping path="/user/**"/>
 				<bean class="com.model2.mvc.common.web.LogonCheckInterceptor" />
 	   		</mvc:interceptor>
-   		</mvc:interceptors>
+   		</mvc:interceptors> -->
 	
 	<!--  :: ViewResolver 선언 -->	
     <bean id="viewResolver"
 				class="org.springframework.web.servlet.view.InternalResourceViewResolver" />
 	
-	
+	<!--  :: FileUpload -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	
 	<!--	
 		■ / 형식의 Mapping 은 모든(정적,동적 자원) 요청시 처리책임
 		■ 정적자원 요청시 DispatcherServlet 에게 처리방법지정

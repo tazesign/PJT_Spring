@@ -7,12 +7,38 @@
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
+<!-- CDN(Content Delivery Network) 호스트 사용 -->
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 	// 검색 / page 두가지 경우 모두 Form 전송을 위해 JavaScrpt 이용  
 	function fncGetList(currentPage) {
-		document.getElementById("currentPage").value = currentPage;
-	   	document.detailForm.submit();		
-	}
+		$("#currentPage").val(currentPage);
+	   	$("form").attr("method", "POST").attr("action", "/purchase/listPurchase").submit();		
+	} 
+	
+	$(function(){
+		//구매번호->구매정보
+		$(".tranNo").on("click", function(){
+			var tranNo = $(this).text().trim();
+			alert("tranNo===="+tranNo);
+			self.location = "/purchase/getPurchase?tranNo=" + tranNo;
+		});
+		
+		//유저아이디->유저정보
+		$(".userId").on("click", function(){
+			var userId = $(this).text().trim();
+			alert("userId===="+userId);
+			self.location = "/user/getUser?userId=" + userId;
+		});
+		
+		//물건도착시이동
+		$( "td.tranInfo:contains('물건도착')" ).on("click" , function() {
+			var tranNo = $(".tranNo").text().trim();
+			alert("tranNo" + tranNo);
+			self.location = "/purchase/updateTranCode?tranNo="+ tranNo +"&tranCode=3";
+		 });
+		
+	});
 </script>
 </head>
 
@@ -20,7 +46,7 @@
 
 <div style="width: 98%; margin-left: 10px;">
 
-<form name="detailForm" action="/purchase/listPurchase" method="post">
+<form name="detailForm">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -70,16 +96,16 @@
 			${ i }
 		</td>
 		<td></td>
-		<td align="left">
-			<a href="/purchase/getPurchase?tranNo=${pur.tranNo}">${pur.tranNo}</a>
+		<td align="left" class="tranNo">
+			${pur.tranNo}
 		</td>
 		<td></td>
 		<td align="left">
 			${pur.purchaseProd.prodNo}
 		</td>
 		<td></td>
-		<td align="left">
-			<a href="/user/getUser?userId=${pur.buyer.userId}">${pur.buyer.userId}</a>
+		<td align="left" class="userId">
+			${pur.buyer.userId}
 		</td>
 		<td></td>
 		<td align="left">${pur.receiverName}</td>
@@ -100,9 +126,9 @@
 			</c:choose>
 		</td>
 		<td></td>
-		<td align="left">
+		<td align="left" class="tranInfo">
 			<c:if test="${pur.tranCode.trim() == '2'}">
-				<a href="/purchase/updateTranCode?tranNo=${pur.tranNo}&tranCode=3">물건도착</a>
+				[물건도착]
 			</c:if>
 		</td>
 	</tr>

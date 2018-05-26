@@ -15,6 +15,7 @@ public class Search {
 	//==> 참조
 	private int endRowNum;
 	private int startRowNum;
+	//상품소팅
 	private int prodSort;
 	
 	///Constructor

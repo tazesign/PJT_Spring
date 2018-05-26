@@ -4,11 +4,18 @@
 <html>
 <head>
 <title>구매 완료</title>
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("form").attr("method", "POST").attr("action", "/purchase/updatePurchase?tranNo=0");
+})
+</script>
+
 </head>
 
 <body>
 
-<form name="updatePurchase" action="/purchase/updatePurchase?tranNo=0" method="post">
+<form name="updatePurchase">
 
 다음과 같이 구매가 되었습니다.
 

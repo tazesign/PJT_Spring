@@ -7,6 +7,20 @@
 <title>Model2 MVC Shop</title>
 
 <link href="/css/left.css" rel="stylesheet" type="text/css">
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+
+	$(function(){
+	
+		$( "td[width='115']:contains('login')" ).on("click" , function() {
+			$(window.parent.frames["rightFrame"].document.location).attr("href","/user/login");
+		});
+		
+		$( "td[width='56']:contains('logout')" ).on("click" , function() {
+			$(window.parent.document.location).attr("href","/user/logout");
+		});
+	});
+</script>
 
 </head>
 
@@ -26,20 +40,13 @@
 	        <tr> 
 	          <td width="115">
 		          <c:if test="${ empty user }">
-		          		<!-- //////////////////////////////////////////////////////////////////////////////////// 
-		              <a href="/loginView.do" target="rightFrame">login</a>
-		              	////////////////////////////////////////////////////////////////////////////////////////// -->
-		              <a href="/user/login" target="rightFrame">login</a>	
-		              
+		              login
 		           </c:if>   
 	          </td>
 	          <td width="14">&nbsp;</td>
 	          <td width="56">
 		          <c:if test="${ ! empty user }">
-		          		<!-- //////////////////////////////////////////////////////////////////////////////////// 
-		              <a href="/logout.do" target="_parent">logout</a>
-		              	////////////////////////////////////////////////////////////////////////////////////////// -->
-		            	<a href="/user/logout" target="_parent">logout</a>  
+		            	logout  
 		           </c:if>
 	          </td>
 	        </tr>
