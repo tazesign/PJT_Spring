@@ -63,20 +63,20 @@ public class ProductRestController {
 		System.out.println("/json/getProduct : GET");
 		//Business Logic
 		
-		Cookie[] c = request.getCookies();
-		String ck = null;
-		if (c!=null && c.length > 0) {
-			for (int i = 0; i<c.length; i++) {
-				Cookie cookie = c[i];
-				if (cookie.getName().equals("history")) {
-					ck  = c[i].getValue();
-				}
-			}
-		}
-		
-		CookieGenerator cookieGenerator = new CookieGenerator();
-		cookieGenerator.setCookieName("history");
-		cookieGenerator.addCookie(response, prodNo + "," + ck);
+//		Cookie[] c = request.getCookies();
+//		String ck = null;
+//		if (c!=null && c.length > 0) {
+//			for (int i = 0; i<c.length; i++) {
+//				Cookie cookie = c[i];
+//				if (cookie.getName().equals("history")) {
+//					ck  = c[i].getValue();
+//				}
+//			}
+//		}
+//		
+//		CookieGenerator cookieGenerator = new CookieGenerator();
+//		cookieGenerator.setCookieName("history");
+//		cookieGenerator.addCookie(response, prodNo + "," + ck);
 		
 		return productService.getProduct(prodNo);
 	}

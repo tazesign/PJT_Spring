@@ -47,6 +47,43 @@
 			}
 		});
 		
+		//ajax정보받기
+		$( ".ct_list_pop td:nth-child(5)" ).on("click" , function() {
+			var prodNo = $(this).text().trim();
+			alert("프로덕트넘버" + prodNo);
+			$.ajax(
+							{
+								url : "/product/json/getProduct/" + prodNo,
+								method : "GET",
+								dataType : "json",
+								headers : {
+									"Accept" : "application/json",
+									"Content-Type" : "application/json"
+								},
+								success : function(JSONData , status) {
+									alert(status);
+									var displayValue = "<h3>"
+																+ "상품명 : "+JSONData.prodName+"<br/>"
+																+ "가격 : "+JSONData.price+"<br/>"
+																+ "등록일 : "+JSONData.manuDate+"<br/>"
+																+ "상품수량 : "+JSONData.quantity+"<br/>"
+																+ "</h3>";
+									$("h3").remove();
+									$("#" + prodNo + "").html(displayValue);
+							}
+						}
+					)
+		});
+		$(function(){
+			
+			$( ".ct_list_pop td:nth-child(5)" ).css("color" , "red");
+			$("h7").css("color" , "red");
+			
+			//==> 아래와 같이 정의한 이유는 ??
+			$(".ct_list_pop:nth-child(4n+6)" ).css("background-color" , "whitesmoke");
+		
+		});
+		
 	});
 </script>
 </head>
@@ -154,6 +191,8 @@
 		<td class="ct_line02"></td>
 		<td class="ct_list_b" width="200">상품명</td>
 		<td class="ct_line02"></td>
+		<td class="ct_list_b">상품번호</td>
+		<td class="ct_line02"></td>
 		<td class="ct_list_b">가격</td>
 		<td class="ct_line02"></td>
 		<td class="ct_list_b">등록일</td>	
@@ -177,6 +216,8 @@
 			<input type="hidden" value="${pro.prodNo}" class="prodNo"/>
 		</td>
 		<td></td>
+		<td align="left">${pro.prodNo}</td>
+		<td></td>
 		<td align="left">${pro.price}</td>
 		<td></td>
 		<td align="left">${pro.manuDate}</td>
@@ -195,7 +236,7 @@
 		<input type="hidden" value="${pro.quantity}" class="quantity"/>
 	</tr>
 	<tr>
-		<td colspan="11" bgcolor="D6D7D6" height="1"></td>
+		<td id="${pro.prodNo}" colspan="11" bgcolor="D6D7D6" height="1"></td>
 	</tr>	
 	</c:forEach>
 	

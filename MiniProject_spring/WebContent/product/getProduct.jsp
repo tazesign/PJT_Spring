@@ -25,6 +25,8 @@
 		 
 		 $("form").attr("method", "POST");
 	});
+	
+	
 
 </script>
 
