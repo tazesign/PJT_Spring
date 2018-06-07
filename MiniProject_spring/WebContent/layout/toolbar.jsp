@@ -58,6 +58,7 @@
 		                     <ul class="dropdown-menu">
 		                         <li><a href="#">판매상품등록</a></li>
 		                         <li><a href="#">판매상품관리</a></li>
+		                         <li><a href="#">배송관리</a></li>
 		                         <li class="divider"></li>
 		                         <li><a href="#">etc..</a></li>
 		                     </ul>
@@ -136,6 +137,11 @@
 			$(self.location).attr("href","/product/listProduct?menu=manage");
 		});
 	 	
+	 	//=============  배송관리 Event  처리 =============	
+	 	$( "a:contains('배송관리')" ).on("click" , function() {
+			$(self.location).attr("href","/purchase/listManageTran");
+		});
+	 	
 	 	//=============  상품검색 Event  처리 =============	
 	 	$( "a:contains('상 품 검 색')" ).on("click" , function() {
 	 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
@@ -145,7 +151,7 @@
 	 	//=============  구매이력조회 Event  처리 =============	
 	 	$( "a:contains('구매이력조회')" ).on("click" , function() {
 	 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$(self.location).attr("href","purchase/listPurchase.jsp");
+			$(self.location).attr("href","/purchase/listPurchase");
 		});
 	 	
 	 	//=============  최근본상품 Event  처리 =============	

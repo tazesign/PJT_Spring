@@ -11,7 +11,7 @@ public interface ProductDao{
 	public void addProduct(Product  product) throws Exception ;
 
 	// SELECT ONE 상품조회 
-	public Product  getProduc(int prodNo) throws Exception ;
+	public Product  getProduct(int prodNo) throws Exception ;
 
 	// SELECT LIST 상품목록조회
 	public List<Product> getProductList(Search search) throws Exception ;

@@ -103,7 +103,7 @@ public class PurchaseController {
 		System.out.println("/purchase/getPurchase : GET");
 		
 		Purchase purchase = purchaseService.getPurchase(Integer.parseInt(tranNo));
-		
+				
 		System.out.println("∞Ÿ∆ﬁ√º¿ÃΩ∫»Æ¿Œ" + purchase);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("forward:/purchase/getPurchase.jsp");

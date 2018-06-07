@@ -39,7 +39,7 @@ public class ProductServiceImpl implements ProductService  {
 
 	public Product getProduct(int prodNo) throws Exception{      
 		
-		return productDao.getProduc(prodNo); //상품조회  getProduct(int prodNo) 는 리턴값이 protuctVO
+		return productDao.getProduct(prodNo); //상품조회  getProduct(int prodNo) 는 리턴값이 protuctVO
 	}
 
 	public Map<String, Object> getProductList(Search search) throws Exception{  

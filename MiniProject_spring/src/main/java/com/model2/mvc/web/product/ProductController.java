@@ -36,7 +36,7 @@ import com.model2.mvc.service.product.impl.ProductServiceImpl;
 @Controller
 @RequestMapping("/product/*")
 public class ProductController {
-	
+	         
 	///Field
 	@Autowired
 	@Qualifier("productServiceImpl")
@@ -186,11 +186,20 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="updateProduct", method=RequestMethod.POST)
-	public String updateProduct( @ModelAttribute("product") Product product , Model model ) throws Exception{
+	public String updateProduct( @ModelAttribute("product") Product product , @RequestParam("file") MultipartFile file) throws Exception{
 
+		System.out.println("¾÷µ«ÇÁ·Î´öÆ®½ÃÀÛ³Ñ¹ö===========" + product.getProdNo());
 		System.out.println("/product/updateProduct : POST");
+		
+		File f = new File("C:\\Users\\Bit\\git\\PJT_Spring\\MiniProject_spring\\WebContent\\images\\uploadFiles\\" + file.getOriginalFilename());
+		file.transferTo(f);
+		product.setFileName(file.getOriginalFilename());
+		product.setManuDate(product.getManuDate().replaceAll("-", ""));
+		
 		//Business Logic
 		productService.updateProduct(product);
+		System.out.println("¾÷µ«ÇÁ·Î´öÆ®³¡³Ñ¹ö===========" + product.getProdNo());
+		
 		
 		return "redirect:/product/getProduct?prodNo="+ product.getProdNo() +"&menu=manage";
 	}
