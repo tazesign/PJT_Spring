@@ -7,7 +7,10 @@
 <head>
 
 <meta charset="EUC-KR">
-	
+		<!--  ///////////////////////// CSS ////////////////////////// -->
+	<style>
+	  body { padding-top : 50px; }
+    </style>
 	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
@@ -30,12 +33,7 @@
   <!-- jQuery UI toolTip 사용 JS-->
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	
-	<!--  ///////////////////////// CSS ////////////////////////// -->
-	<style>
-	  body {
-            padding-top : 50px;
-        }
-    </style>
+
     
 	<script type="text/javascript">
 		// 검색 / page 두가지 경우 모두 Form 전송을 위해 JavaScrpt 이용  
@@ -150,13 +148,14 @@
 
 			<thead>
 				<tr>
-					<th align="center">No</th>					
-					<th align="left">상품번호</th>
-					<th align="left">상품명</th>
-					<th align="left">가격</th>
-					<th align="left">등록일</th>
-					<th align="left">현재상태</th>
-					<th align="left">상품수량</th>
+					<th class="text-center">No</th>					
+					<th class="text-center">상품번호</th>
+					<th class="text-center">상품명</th>
+					<th class="text-center">상품이미지</th>
+					<th class="text-center">가격</th>
+					<th class="text-center">등록일</th>
+					<th class="text-center"">현재상태</th>
+					<th class="text-center">상품수량</th>
 				</tr>
 			</thead>
 			
@@ -165,15 +164,18 @@
 				<c:forEach var="pro" items="${list}">
 					<c:set var="i" value="${ i+1 }" />
 					<tr>
-						<td align="center">${ i }</td>
-						<td align="left">${pro.prodNo}</td>
-						<td align="left" title="Click : 상품정보 확인" class="prodName">
+						<td align="center" style="vertical-align:middle">${ i }</td>
+						<td align="center"  style="vertical-align:middle">${pro.prodNo}</td>
+						<td align="center" title="Click : 상품정보 확인" class="prodName"  style="vertical-align:middle">
 							${pro.prodName}
 							<input type="hidden" value="${pro.prodNo}" class="prodNo"/>
 						</td>
-						<td align="left">${pro.price}</td>
-						<td align="left">${pro.manuDate}</td>
-						<td align="left">
+						<td align="center">
+							<img src="/images/uploadFiles/${pro.fileName}" width="150"/>
+						</td>
+						<td align="center"  style="vertical-align:middle">${pro.price}</td>
+						<td align="center"  style="vertical-align:middle">${pro.manuDate}</td>
+						<td align="center"  style="vertical-align:middle">
 							<c:choose>
 								<c:when test="${pro.quantity >= 1}">
 								판매중
@@ -183,7 +185,7 @@
 								</c:otherwise>
 							</c:choose>
 						</td>
-						<td align="left">${pro.quantity}</td>
+						<td align="center"  style="vertical-align:middle">${pro.quantity}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

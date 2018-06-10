@@ -133,6 +133,20 @@ public class UserController {
 		return "redirect:/index.jsp";
 	}
 	
+//	카카오임시로그인용
+	@RequestMapping( value="kakaoLogin", method=RequestMethod.GET)
+	public String kakaoLogin(@RequestParam String userId , HttpSession session ) throws Exception{
+		
+		System.out.println("/user/kakaoLogin : GET");
+		//Business Logic
+		User user = new User();
+		user.setUserId(userId);
+		
+		session.setAttribute("user", user);
+		
+		return "redirect:/index.jsp";
+	}
+	
 //	@RequestMapping("/logout.do")
 	@RequestMapping( value="logout", method=RequestMethod.GET )
 	public String logout(HttpSession session ) throws Exception{

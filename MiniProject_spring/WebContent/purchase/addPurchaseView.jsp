@@ -67,7 +67,7 @@
 	<jsp:include page="/layout/toolbar.jsp" />
    	<!-- ToolBar End /////////////////////////////////////-->
    	
-   	<div class="container">
+   	<div class ="container">
    	
    		<h1 class="bg-primary text-center">상품상세조회</h1>
    		
